@@ -1,15 +1,11 @@
 // This file containts API implementation for various user related activities. For example: Applying Loan, Checking loan status etc.
 
-path = require('path')
-bodyParser = require('body-parser');
-
 const router = require("express").Router();
 const verify = require("./bankManagerVerfiy");
 
 //VALIDATION OF USER INPUTS PREREQUISITES
 const Joi = require("joi");
 const LoanRequest = require('../../models/LoanRequest');
-const { update } = require('../../models/LoanRequest');
 
 const updateLoanStatusSchema = Joi.object({
     isAccepted: Joi.boolean().required(),

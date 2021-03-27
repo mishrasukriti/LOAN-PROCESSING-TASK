@@ -25,20 +25,14 @@ const userSchema = new mongoose.Schema({
     max: 1024,
     min: 4  ,
   },
-  // spAccessValue: {
-  //   type: String,
-  //   max: 10,
-  //   min: 2,
-  // },
+  
   type: {
     type: String,
     required: true,
     max: 10,
     min: 2,
   },
-  // randomString: {
-  //   type: String
-  // },
+  
   date: {
     type: Date,
     default: Date.now(),
