@@ -90,7 +90,7 @@ router.post("/applyLoan", verify, async (req, res) => {
                     loanRequest.currentStatus = "NEW_REQUEST";
                     loanRequest.assignedCRMEmailId = loanRequestAssignor.getCustomerRelationshipManagerForLoanRequest();
                     await loanRequest.save();
-                    res.status(200).send("Loan Applied Successfully. LoanRequest details: " + loanRequest);
+                    res.status(200).send(loanRequest);
                 } else {
                     //User is not registered in DB. Loan request can not be added
                     res.status(400).send("Could not Apply for loan. User with EmailId:" + req.body.userEmailId + " is not Registered");

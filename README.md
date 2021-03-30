@@ -1,6 +1,11 @@
 # LOAN-PROCESSING-TASK
 
 
+#Deployed Frontend URL:  
+
+#Deployed Backend URL: https://loan-processing-backend.herokuapp.com/
+
+
 # Bank Manager Credentials to view activity demo
 {
     "email": "bankmanager@gmail.com",
