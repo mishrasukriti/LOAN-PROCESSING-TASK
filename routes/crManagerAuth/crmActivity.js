@@ -21,16 +21,17 @@ const listCRMLoanRequestsSchema = Joi.object({
   });
 
 // API to fetch all loan requests list for a customer relationship manager 
-router.get("/listCRMLoanRequests", verify, async (req, res) => {
+router.post("/listCRMLoanRequests", verify, async (req, res) => {
     try {
-        const { error } = await listCRMLoanRequestsSchema.validateAsync(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        // const { error } = await listCRMLoanRequestsSchema.validateAsync(req.body);
+        // if (error) return res.status(400).send(error.details[0].message);
         // Verify if requesting user exists in Database
+        console.log("got crmEmailId:" + req.body.crmEmailId);
         let crm = await User.findOne({ email: req.body.crmEmailId });
 
         if(crm) {
             let loanRequests = await LoanRequest.find({ assignedCRMEmailId: req.body.crmEmailId });
-            res.status(200).send("Loan Requests JSON for CRM: " + req.body.crmEmailId + " is: "  + JSON.stringify(loanRequests));
+            res.status(200).send(loanRequests);
         } else {
             res.status(400).send("Customer Relations Manager with EmailId: " + req.body.crmEmailId + " does not exist.");    
         }

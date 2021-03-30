@@ -24,7 +24,7 @@ const checkLoanRequestStatusSchema = Joi.object({
   });
 
 // CheckLoanStatus API
-router.get("/checkLoanRequestStatus", verify, async (req, res) => {
+router.post("/checkLoanRequestStatus", verify, async (req, res) => {
     try {
         const { error } = await checkLoanRequestStatusSchema.validateAsync(req.body);
         if (error) return res.status(400).send(error.details[0].message);
@@ -32,10 +32,30 @@ router.get("/checkLoanRequestStatus", verify, async (req, res) => {
         // Verify if requesting loan request exists in Database
         let loanRequest = await LoanRequest.findOne({ loanRequestId: req.body.loanRequestId });
         if(loanRequest) {
-            res.status(200).send("Loan Status: " + loanRequest.currentStatus);
+            res.status(200).send("Loan Status: " + loanRequest);
         } else {
             //User is not registered in DB. Loan request can not be added
             res.status(400).send("Could not Find any loan request with LoanId: " + req.body.loanRequestId);
+        }
+    } 
+    catch (error) {
+        console.log("error in checkStatus api's catch is: "+ error);
+        res.status(400).send(error);
+    }
+
+});
+
+// CheckLoanStatus API
+router.post("/fetchLoanRequests", verify, async (req, res) => {
+    try {
+
+        // Verify if requesting loan request exists in Database
+        let loanRequests = await LoanRequest.find({ userEmailId: req.body.userEmailId });
+        if(loanRequests) {
+            res.status(200).send(loanRequests);
+        } else {
+            //User is not registered in DB. Loan request can not be added
+            res.status(400).send("Could not Find any loan request for userEmailId: " + req.body.userEmailId);
         }
     } 
     catch (error) {
@@ -49,6 +69,8 @@ router.get("/checkLoanRequestStatus", verify, async (req, res) => {
 router.post("/applyLoan", verify, async (req, res) => {
     var creationDate =  formCurrentDate();
     let loanRequest = new LoanRequest({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         userEmailId: req.body.userEmailId,
         creationTime: creationDate,
         lastUpdatedTime: creationDate,

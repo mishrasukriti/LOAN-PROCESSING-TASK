@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
           { _id: user._id },
           process.env.BANK_MANAGER_TOKEN_SECRET
         );
-        res.status(200).header("auth-token", token).send("Bank Manager Login Successful");
+        res.status(200).header("auth-token", token).send(token);
     }
   } catch (error) {
     res.status(400).send(error);

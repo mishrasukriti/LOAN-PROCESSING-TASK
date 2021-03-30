@@ -64,6 +64,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   //CHECKING IF USER EMAIL EXISTS
+  console.log("Reached user login: email is" + req.body.email);
   const user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Incorrect Email- ID");
   //CHECKING IF USER PASSWORD MATCHES
@@ -81,7 +82,7 @@ router.post("/login", async (req, res) => {
           { _id: user._id },
           process.env.USER_TOKEN_SECRET
         );
-        res.status(200).header("auth-token", token).send("User Login Successful");
+        res.status(200).header("auth-token", token).send(token);
     }
   } catch (error) {
     res.status(400).send(error);

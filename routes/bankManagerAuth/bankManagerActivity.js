@@ -17,7 +17,7 @@ const updateLoanStatusSchema = Joi.object({
 router.get("/listAllLoanRequests", verify, async (req, res) => {
     try {
         let loanRequests = await LoanRequest.find();
-        res.status(200).send("All Loan Requests JSON is: "  + JSON.stringify(loanRequests));
+        res.status(200).send(loanRequests);
     } 
     catch (error) {
         console.log("error in getLoanRequestsList api's catch is: "+ error);
@@ -34,7 +34,7 @@ router.put("/updateLoanStatus", verify, async (req, res) => {
         let loanRequest = await LoanRequest.findOne({ loanRequestId: req.body.loanRequestId });
         if(loanRequest) {
             if(loanRequest.currentStatus === 'NEW_REQUEST') {
-                res.status(200).send("Loan request could not be Approved as it is pending FIRST LEVEL APPROVAL from customer relationship Manager. Current Status is:" + loanRequest.currentStatus);
+                res.status(200).send("Loan request could not be updated as it is pending FIRST LEVEL REVIEW from customer relationship Manager. Current Status is:" + loanRequest.currentStatus);
             } else {
                 if(req.body.isAccepted) {
                     loanRequest.currentStatus = "LOAN_REQUEST_APPROVED_ALL_LEVELS";
