@@ -1,9 +1,11 @@
 # LOAN-PROCESSING-TASK
 
 
-#Deployed Frontend URL:  
+#Deployed Frontend URL:  https://sukriti-loan-processing-task.netlify.app/
 
 #Deployed Backend URL: https://loan-processing-backend.herokuapp.com/
+
+#Github Link for frontend: https://github.com/mishrasukriti/loan-processing-frontend
 
 
 # Bank Manager Credentials to view activity demo
